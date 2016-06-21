@@ -2,6 +2,10 @@
 
 var qhttp = require('q-io/http');
 
-qhttp.read('localhost:7000').then(function(id){
-	return qhttp.read('localhost:7001/' + id)
-}).then(console.log);
+qhttp.read('http://localhost:7000').then(function(content){
+	return qhttp.read('http://localhost:7001/'+content.toString());
+}).then(function(content){
+	console.log(JSON.parse(content.toString()));
+}).catch(function(error){
+	console.log(error.message);
+})
